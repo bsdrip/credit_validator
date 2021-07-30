@@ -8,3 +8,5 @@ basic credit card validator program implemented in C
 2 make a shell script to compile and run the program
 
 3 make a tutorial for the program
+
+4 add more comments in the code
