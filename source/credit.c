@@ -30,9 +30,10 @@ int digitCount(long int a)
 }
 
 // puts every other number (0, 2, 4, 5... indices) into an array of integers
-int * getEverySecond(long int a, int length)
+int * getEverySecond(long int a)
 {
   char snum[17];
+  int length = digitCount(a);
   int mult = digitCount(a) / 2;
   int* res = (int*)malloc(sizeof(int)*mult);
 
@@ -53,10 +54,10 @@ int * getEverySecond(long int a, int length)
 }
 
 // adds together the digits of every other number in the card number
-int productsDigits(int* a)
+int productsDigits(int* a, int length)
 {
   int count = 0;
-  for (unsigned long int i = 0; i < sizeof(a); ++i)
+  for (int i = 0; i < length; ++i)
   {
     if (*(a + i) > 9)
     {
@@ -202,10 +203,20 @@ void run()
   long int a = 0;
   printf("NUMBER: ");
   scanf("%ld", &a);
-  int length = digitCount(a);
 
-  int* seconds    = getEverySecond(a, length);
-  int prodDigs    = productsDigits(seconds);
+  int* seconds    = getEverySecond(a);
+  int length      = 0;
+
+  if (digitCount(a) % 10)
+  {
+    length = digitCount(a) / 2 + 1;
+  }
+  else 
+  {
+    length = digitCount(a) / 2;
+  }
+
+  int prodDigs    = productsDigits(seconds,length);
   int rest        = getRestSum(a);
 
   int validNums   = validate(prodDigs, rest);
@@ -248,16 +259,16 @@ void test(long int a)
     printf("INVALID\n");
   }
 
-  int length = digitCount(a);
+  int length = digitCount(a)/2;
 
-  int* temp = getEverySecond(a, length);
+  int* temp = getEverySecond(a);
   for (int i = 0; i < digitCount(a)/2; ++i)
   {
     printf("%d", *(temp + i));
   }
   printf("\n");
 
-  int b = productsDigits(temp);
+  int b = productsDigits(temp, length);
   printf("%d\n", b);
 
   int count = getRestSum(a);

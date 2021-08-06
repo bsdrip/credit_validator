@@ -5,9 +5,9 @@
 
 int digitCount(long int);
 int checkLengthValidity(long int);
-int * getEverySecond(long int, int length);
+int * getEverySecond(long int);
 int getRestSum(long int);
-int productsDigits(int*);
+int productsDigits(int*,int);
 int validate(int, int);
 
 int checkAmex(long int);
