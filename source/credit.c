@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+// checks if the length of the card number matches either one of the relevant brands standard
 int checkLengthValidity(long int a)
 {
   if (digitCount(a) == 13 || digitCount(a) == 15 || digitCount(a) == 16)
@@ -15,6 +17,7 @@ int checkLengthValidity(long int a)
   }
 }
 
+// counts the number of digits of the card number
 int digitCount(long int a)
 {
   int count = 0;
@@ -26,7 +29,8 @@ int digitCount(long int a)
   return count;
 }
 
-int * getEverySecond(long int a)
+// puts every other number (0, 2, 4, 5... indices) into an array of integers
+int * getEverySecond(long int a, int length)
 {
   char snum[17];
   int mult = digitCount(a) / 2;
@@ -35,7 +39,7 @@ int * getEverySecond(long int a)
   sprintf(snum, "%li", a);
 
   int ind = 0;
-  for (int i = 0; i < sizeof(snum)/sizeof(snum[0]); ++i)
+  for (int i = 0; i < length; ++i)
   {
     if (i % 2 == 0)
     {
@@ -48,10 +52,11 @@ int * getEverySecond(long int a)
   return res;
 }
 
+// adds together the digits of every other number in the card number
 int productsDigits(int* a)
 {
   int count = 0;
-  for (int i = 0; i < sizeof(a); ++i)
+  for (unsigned long int i = 0; i < sizeof(a); ++i)
   {
     if (*(a + i) > 9)
     {
@@ -67,6 +72,7 @@ int productsDigits(int* a)
   return count;
 }
 
+// adds together every second number of the card 
 int getRestSum(long int a)
 {
   char snum[17];
@@ -76,7 +82,7 @@ int getRestSum(long int a)
   sprintf(snum, "%li", a);
 
   int ind = 0;
-  for (int i = 1; i < sizeof(snum)/sizeof(snum[0]); ++i)
+  for (unsigned long int i = 1; i < sizeof(snum)/sizeof(snum[0]); ++i)
   {
     if (i % 2 == 1)
     {
@@ -93,6 +99,7 @@ int getRestSum(long int a)
   return count;
 }
 
+// returns true (1) if the result is valid (result mod 10 = 0)
 int validate(int a, int b)
 {
   if ((a + b) % 10 == 0)
@@ -105,6 +112,7 @@ int validate(int a, int b)
   }
 }
 
+// checks for American Express standards
 int checkAmex(long int a)
 {
   char snum[17];
@@ -134,6 +142,7 @@ int checkAmex(long int a)
   }
 }
 
+// checks for Mastercard standards
 int checkMastercard(long int a)
 {
   char snum[17];
@@ -164,6 +173,7 @@ int checkMastercard(long int a)
   }
 }
 
+// checks for Visa standards
 int checkVisa(long int a)
 {
   char snum[17];
@@ -186,13 +196,15 @@ int checkVisa(long int a)
   }
 }
 
+// runs the programs functions in order and gets back a result
 void run()
 {
   long int a = 0;
   printf("NUMBER: ");
   scanf("%ld", &a);
+  int length = digitCount(a);
 
-  int* seconds    = getEverySecond(a);
+  int* seconds    = getEverySecond(a, length);
   int prodDigs    = productsDigits(seconds);
   int rest        = getRestSum(a);
 
@@ -223,7 +235,7 @@ void run()
   }
 }
 
-/// tests
+// tests
 void test(long int a)
 {
   printf("%d\n", digitCount(a));
@@ -236,7 +248,9 @@ void test(long int a)
     printf("INVALID\n");
   }
 
-  int* temp = getEverySecond(a);
+  int length = digitCount(a);
+
+  int* temp = getEverySecond(a, length);
   for (int i = 0; i < digitCount(a)/2; ++i)
   {
     printf("%d", *(temp + i));

@@ -5,7 +5,7 @@
 
 int digitCount(long int);
 int checkLengthValidity(long int);
-int * getEverySecond(long int);
+int * getEverySecond(long int, int length);
 int getRestSum(long int);
 int productsDigits(int*);
 int validate(int, int);
