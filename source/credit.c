@@ -33,14 +33,14 @@ int digitCount(long int a)
 int * getEverySecond(long int a)
 {
   char snum[17];
-  int length = digitCount(a);
+  unsigned int length = digitCount(a);
   int mult = digitCount(a) / 2;
   int* res = (int*)malloc(sizeof(int)*mult);
 
   sprintf(snum, "%li", a);
 
   int ind = 0;
-  for (int i = 0; i < length; ++i)
+  for (size_t i = 0; i < length; ++i)
   {
     if (i % 2 == 0)
     {
@@ -54,10 +54,10 @@ int * getEverySecond(long int a)
 }
 
 // adds together the digits of every other number in the card number
-int productsDigits(int* a, int length)
+int productsDigits(int* a, size_t length)
 {
   int count = 0;
-  for (int i = 0; i < length; ++i)
+  for (size_t i = 0; i < length; ++i)
   {
     if (*(a + i) > 9)
     {
@@ -77,13 +77,15 @@ int productsDigits(int* a, int length)
 int getRestSum(long int a)
 {
   char snum[17];
-  int mult = digitCount(a) / 2;
+  unsigned int mult = digitCount(a) / 2;
   int* res = (int*)malloc(sizeof(int)*mult);
 
   sprintf(snum, "%li", a);
+   
+  size_t length = sizeof(snum)/sizeof(snum[0]);
 
   int ind = 0;
-  for (unsigned long int i = 1; i < sizeof(snum)/sizeof(snum[0]); ++i)
+  for (size_t i = 1; i < length; ++i)
   {
     if (i % 2 == 1)
     {
@@ -92,7 +94,7 @@ int getRestSum(long int a)
     }
   }
   int count = 0;
-  for (int i = 0; i < mult; ++i)
+  for (size_t i = 0; i < mult; ++i)
   {
     count += *(res + i);
   }
@@ -205,7 +207,7 @@ void run()
   scanf("%ld", &a);
 
   int* seconds    = getEverySecond(a);
-  int length      = 0;
+  size_t length      = 0;
 
   if (digitCount(a) % 10)
   {
@@ -259,7 +261,7 @@ void test(long int a)
     printf("INVALID\n");
   }
 
-  int length = digitCount(a)/2;
+  unsigned int length = digitCount(a)/2;
 
   int* temp = getEverySecond(a);
   for (int i = 0; i < digitCount(a)/2; ++i)
